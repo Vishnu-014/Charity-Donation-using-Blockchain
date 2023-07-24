@@ -1,9 +1,34 @@
-import React from 'react';
-import { useStateContext } from '../context';
-import { FaHandsHelping } from 'react-icons/fa';
+import React from "react";
+import { useState } from "react";
+import { useCountUp } from "use-count-up";
+import { useStateContext } from "../context";
+import { FaHandsHelping } from "react-icons/fa";
 
 const Home = () => {
   const { address, connect } = useStateContext();
+
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(10);
+  const [start1, setStart1] = useState(0);
+  const [end1, setEnd1] = useState(20);
+  const [duration, setDuration] = useState(2);
+  const [decimalPlaces, setDdecimalPlaces] = useState(0);
+  const [easing, setEasing] = useState("easeOutCubic");
+  const [thousandsSeparator, setThousandsSeparator] = useState("");
+  const [decimalSeparator, setDecimalSeparator] = useState("");
+  const setValue = (func) => (event) => func(parseFloat(event.target.value));
+  const setText = (func) => (event) => func(event.target.value);
+
+  const { value, reset } = useCountUp({
+    isCounting: true,
+    start,
+    end,
+    duration,
+    easing,
+    decimalPlaces,
+    thousandsSeparator,
+    decimalSeparator,
+  });
 
   return (
     <div className="h-[720px] flex flex-col items-center justify-center relative">
@@ -38,15 +63,15 @@ const Home = () => {
 
       <div className="absolute bottom-10 right-0 left-0 h-24 bg-[#11111b] rounded-xl text-white flex flex-row items-center justify-evenly">
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-semibold">10M</h1>
+          <h1 className="text-4xl font-semibold">{value}M</h1>
           <h1 className="text-xl font-normal">Volunteers Connected</h1>
         </div>
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-semibold">10M</h1>
+          <h1 className="text-4xl font-semibold">{7}M</h1>
           <h1 className="text-xl font-normal">Total Money Donated</h1>
         </div>
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-semibold">2M</h1>
+          <h1 className="text-4xl font-semibold">{2}M</h1>
           <h1 className="text-xl font-normal">Volunteers Needed</h1>
         </div>
       </div>

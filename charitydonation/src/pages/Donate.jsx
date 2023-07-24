@@ -4,9 +4,8 @@ import { useContractWrite } from '@thirdweb-dev/react';
 import { ethers } from 'ethers';
 import toast from 'react-hot-toast';
 
-
 const Donate = () => {
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState();
   const { address, contract } = useStateContext();
 
   const { mutateAsync: donate, isLoading } = useContractWrite(
@@ -14,10 +13,8 @@ const Donate = () => {
     'donate'
   );
 
-  const { mutateAsync: cancelDonation, isLoading: cancelDonationLoading } = useContractWrite(
-    contract,
-    'cancelDonation'
-  );
+  const { mutateAsync: cancelDonation, isLoading: cancelDonationLoading } =
+    useContractWrite(contract, 'cancelDonation');
 
   const submitHandler = async () => {
     const notification = toast.loading('Progressing...');
@@ -25,8 +22,8 @@ const Donate = () => {
       const data = await donate({
         args: [],
         overrides: {
-          gasLimit: 1000000, 
-          value: ethers.utils.parseEther(amount)
+          gasLimit: 1000000,
+          value: ethers.utils.parseEther(amount),
         },
       });
       toast.success('Donated successfully!', {
@@ -44,13 +41,13 @@ const Donate = () => {
 
   const cancelDonationHandler = async () => {
     const notification = toast.loading('Withdraw processing');
-    
+
     try {
       const data = await cancelDonation({
         args: [],
         overrides: {
-          gasLimit: 1000000, 
-          value: ethers.utils.parseEther('0'), 
+          gasLimit: 1000000,
+          value: ethers.utils.parseEther('0'),
         },
       });
       toast.success('Withdraw successfully!', {
@@ -67,19 +64,22 @@ const Donate = () => {
 
   return (
     <div className="h-[720px] flex flex-col items-center justify-center space-y-5 relative">
-      <div className="absolute top-10 right-50">
-        <h1 className="text-[#4acd8d] text-6xl uppercase font-extrabold font-epilogue tracking-widest ">
+      <div className="absolute top-0 left-[40%]">
+        <h1 className="uppercase tracking-widest text-[#1dc071] font-semibold font-epilogue text-6xl">
           Donate
         </h1>
       </div>
 
-      <div className="absolute top-10 right-0">
-        <h4 className="text-[#4acd8d] text-xl uppercase font-extrabold font-epilogue tracking-wide ">
-          Withdraw donation in : 20min
+      <div className="absolute top-0 right-0">
+        <h4 className="text-[#4acd8d] text-xl uppercase text-center font-normal font-epilogue tracking-wide ">
+          Withdraw donation
+        </h4>
+        <h4 className="text-[#4acd8d] text-xl uppercase text-center font-normal font-epilogue tracking-wide ">
+          in : 20min
         </h4>
       </div>
 
-      <div className="flex flex-col space-y-5 bg-[#1c1c24] p-20 rounded-2xl">
+      <div className="flex flex-col space-y-5 bg-[#1c1c24] border border-[#1dc071] p-20 rounded-2xl">
         <div className="flex flex-row gap-5">
           <label
             htmlFor=""

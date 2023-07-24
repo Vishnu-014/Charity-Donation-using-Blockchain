@@ -12,9 +12,15 @@ const Navbar = () => {
   return (
     <div className="w-full h-16 bg-[#1c1c24] absolute top-0 right-0 left-0 flex flex-row items-center justify-between p-10">
       <div className="flex flex-row justify-center items-center gap-5">
-        <img src={logo} alt="logo" className="w-16 h-16" />
+        <img
+          src={
+            'https://a6e8z9v6.stackpathcdn.com/chariti/demo2/wp-content/uploads/sites/4/2020/03/logo-demo-2.png'
+          }
+          alt="logo"
+          className="w-16 h-16 object-contain"
+        />
         <p className="text-[#ebebeb] font-medium font-epilogue">
-          User : {' '}
+          User :{' '}
           <span className="text-[#4acd8d]">
             {address && address.substring(0, 5)}...
             {address && address.substring(address.length, address.length - 5)}
